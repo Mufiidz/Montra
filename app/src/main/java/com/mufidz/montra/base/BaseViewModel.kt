@@ -1,10 +1,7 @@
 package com.mufidz.montra.base
 
 import androidx.annotation.MainThread
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 
 abstract class BaseViewModel<State : ViewState, Action : ViewAction>(
     initState: State
@@ -19,15 +16,16 @@ abstract class BaseViewModel<State : ViewState, Action : ViewAction>(
             renderViewState(it).updateCurrentViewState()
         }
 
-    private val statelessAction = MutableLiveData<StatelessViewAction>()
+//    private val statelessAction = MutableLiveData<StatelessViewAction>()
 //    val viewSideEffect: LiveData<SideEffect> =
 //        Transformations.switchMap(statelessAction, ::handleAction)
 
     @MainThread
-    fun execute(action: Action) = when (action) {
-        is StatelessViewAction -> statelessAction.value = action
-        else -> viewAction.value = action
-    }
+    fun execute(action: Action) { viewAction.value = action }
+//    fun execute(action: Action) = when (action) {
+//        is StatelessViewAction -> statelessAction.value = action
+//        else -> viewAction.value = action
+//    }
 
     protected fun getCurrentViewState(): State = currentViewState
 

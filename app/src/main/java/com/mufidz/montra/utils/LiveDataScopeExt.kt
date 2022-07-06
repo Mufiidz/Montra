@@ -1,8 +1,8 @@
 package com.mufidz.montra.utils
 
 import androidx.lifecycle.LiveDataScope
-import com.mufidz.montra.base.UseCaseResult
+import com.mufidz.montra.base.ActionResult
 
-suspend fun LiveDataScope<UseCaseResult>.callUseCase(block: UseCaseResult) {
+suspend fun LiveDataScope<ActionResult>.callUseCase(block: ActionResult) {
     emit(block)
 }

@@ -1,0 +1,15 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <EditTextPreference
+        app:key="name"
+        app:title="Your Name"
+        app:useSimpleSummaryProvider="true"
+        app:iconSpaceReserved="false"/>
+
+    <Preference
+        app:key="tag"
+        app:title="Tag Category"
+        app:summary="Change tag here"
+        app:iconSpaceReserved="false"/>
+
+</PreferenceScreen>

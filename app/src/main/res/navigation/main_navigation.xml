@@ -15,4 +15,29 @@
         android:name="com.mufidz.montra.screen.add.AddReportFragment"
         android:label="Add Report"
         tools:layout="@layout/fragment_add_report" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.mufidz.montra.screen.history.HistoryFragment"
+        android:label="History"
+        tools:layout="@layout/history_fragment" />
+    <fragment
+        android:id="@+id/discountFragment"
+        android:name="com.mufidz.montra.screen.discount.DiscountFragment"
+        android:label="Discount Calculator"
+        tools:layout="@layout/discount_fragment"/>
+    <dialog
+        android:id="@+id/resultDiscountBottomSheet"
+        android:name="com.mufidz.montra.screen.discount.ResultDiscountBottomSheet"
+        android:label="ResultDiscountBottomSheet"
+        tools:layout="@layout/bottomsheet_result_discount"/>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.mufidz.montra.screen.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/tagProfileFragment"
+        android:name="com.mufidz.montra.screen.profile.TagProfileFragment"
+        android:label="Tag Profile"
+        tools:layout="@layout/fragment_tag_profile"/>
 </navigation>

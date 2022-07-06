@@ -1,34 +1,26 @@
 package com.mufidz.montra.screen.home
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.mufidz.montra.R
 import com.mufidz.montra.base.BaseFragment
 import com.mufidz.montra.databinding.FragmentHomeBinding
+import com.mufidz.montra.entity.Product
 import com.mufidz.montra.entity.Report
-import com.mufidz.montra.screen.ReportAction
-import com.mufidz.montra.screen.ReportViewModel
+import com.mufidz.montra.intention.ReportAction
 import com.mufidz.montra.utils.viewBinding
+import com.mufidz.montra.viewmodel.ReportViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.math.abs
+import timber.log.Timber
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding, ReportViewModel>(R.layout.fragment_home),
-    HomeListener {
+class HomeFragment : BaseFragment<FragmentHomeBinding, ReportViewModel>(R.layout.fragment_home), ReportListener {
 
-    private var amount = 0
-    private var income = 0
-    private var outcome = 0
-
-    private val reportAdapter by lazy { ReportAdapter() }
+    private val homeAdapter by lazy { HomeAdapter() }
 
     override val viewModel: ReportViewModel by viewModels()
 
@@ -37,64 +29,60 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, ReportViewModel>(R.layout
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val itemTouchHelper =
-            ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-                override fun onMove(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
-                ): Boolean = false
-
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    var isConfirmDelete = true
-                    val adapter = binding.listItem.adapter as ReportAdapter
-                    val report = adapter.list[viewHolder.adapterPosition]
-                    adapter.removeAt(viewHolder.adapterPosition)
-                    snackbar("Berhasil dihapus", false, "Batal") {
-                        adapter.updateAt(viewHolder.adapterPosition, report)
-                        isConfirmDelete = false
-                    }
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        if (isConfirmDelete) {
-                            viewModel.execute(ReportAction.DeleteReportById(report.id))
-                        }
-                    }, 3000)
-                }
-            })
-
         with(binding) {
-            appbar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-                collapse.title =
-                    if (abs(verticalOffset) - appBarLayout.totalScrollRange == 0) getString(R.string.app_name) else ""
-            }
-            fabAddReport.setOnClickListener {
-                intent(R.id.addReportFragment, null)
-            }
             listItem.apply {
                 layoutManager = LinearLayoutManager(context)
-                adapter = reportAdapter.apply {
-                    onItemListener = this@HomeFragment
-                }
-                itemTouchHelper.attachToRecyclerView(this)
+                adapter = homeAdapter.apply { listener = this@HomeFragment }
             }
         }
 
         viewModel.apply {
-            execute(ReportAction.GetListReport)
+            execute(ReportAction.GetHomeData)
             viewState.observe(viewLifecycleOwner) {
-                binding.shimmer.apply {
+                val amount = it.dashboard.amount
+                with(binding) {
                     if (it.isLoading) {
-                        visibility = View.VISIBLE
-                        startShimmer()
+                        shimmer.apply {
+                            visibility = View.VISIBLE
+                            startShimmer()
+                        }
                     } else {
-                        stopShimmer()
-                        visibility = View.GONE
+                        shimmer.apply {
+                            stopShimmer()
+                            visibility = View.GONE
+                        }
+                        listItem.scrollToPosition(0)
+                    }
+                    root.apply {
+                        background = if (amount > 0) ContextCompat.getDrawable(
+                            context,
+                            R.drawable.gradient_home
+                        ) else if (amount == 0) null else ContextCompat.getDrawable(
+                            context,
+                            R.drawable.gradient_home_error
+                        )
                     }
                 }
-                reportAdapter.setData(it.listReport)
+
+                homeAdapter.apply {
+                    Timber.d(it.name)
+                    setName(it.name)
+                    setDashboard(it.dashboard)
+                    setListProduct(getListProduct())
+                    setListReport(it.listReport)
+                }
             }
         }
     }
+
+    private fun getListProduct(): List<Product> = listOf(
+        Product("Income", R.id.addReportFragment, bundleOf("isIncome" to true)),
+        Product("Money Plan"),
+        Product("Outcome", R.id.addReportFragment, bundleOf("isIncome" to false)),
+        Product("Wishlist"),
+        Product("History", R.id.historyFragment),
+        Product("Discount Calculator", R.id.discountFragment),
+    )
 
     override fun onItemClick(data: Report) {
         bundleOf("report" to data).also {
@@ -102,13 +90,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, ReportViewModel>(R.layout
         }
     }
 
-    override fun getItem(report: Report) {
-        amount = if (report.isIncome) amount + report.amount else amount - report.amount
-        if (report.isIncome) income += report.amount else outcome += report.amount
-        Log.d("TAG", "Amount: $amount Income: $income Outcome: $outcome")
-    }
-
-    override fun getItemCount(count: Int) {
-        binding.imgNoData.visibility = if (count == 0) View.VISIBLE else View.GONE
-    }
+    override fun getItemCount(count: Int) {}
 }

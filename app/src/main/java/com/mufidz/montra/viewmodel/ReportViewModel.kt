@@ -1,11 +1,15 @@
-package com.mufidz.montra.screen
+package com.mufidz.montra.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.mufidz.montra.base.BaseViewModel
 import com.mufidz.montra.base.UseCaseResult
-import com.mufidz.montra.utils.callUseCase
+import com.mufidz.montra.intention.ReportAction
+import com.mufidz.montra.intention.ReportViewState
+import com.mufidz.montra.repository.PreferencesRepository
+import com.mufidz.montra.repository.ReportRepository
+import com.mufidz.montra.screen.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
@@ -13,13 +17,17 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ReportViewModel @Inject constructor(private val reportRepository: ReportRepository) :
-    BaseViewModel<ReportViewState, ReportAction>(ReportViewState()) {
+class ReportViewModel @Inject constructor(
+    private val reportRepository: ReportRepository,
+    private val preferencesRepository: PreferencesRepository
+) : BaseViewModel<ReportViewState, ReportAction>(ReportViewState()) {
     override fun renderViewState(result: UseCaseResult?): ReportViewState =
         when (result) {
             is AddReportDataResult -> result.mapAddReport()
             is ReportListDataResult -> result.mapListReport()
             is DeleteReportDataResult -> result.mapDeleteReport()
+            is DashboardDataResult -> result.mapDashboard()
+            is NameDataResult -> result.mapNameResult()
             else -> getCurrentViewState()
         }
 
@@ -31,15 +39,17 @@ class ReportViewModel @Inject constructor(private val reportRepository: ReportRe
                     delay(250)
                     coroutineScope {
                         launch {
-                            callUseCase(reportRepository.addReport(report))
+                            emit(reportRepository.addReport(report))
                         }
                     }
                 }
-                ReportAction.GetListReport -> {
-                    delay(250)
+                ReportAction.GetHomeData -> {
+                    delay(3000)
                     coroutineScope {
                         launch {
-                            callUseCase(reportRepository.getListReport())
+                            emit(preferencesRepository.getName())
+                            emit(reportRepository.getListReport())
+                            emit(reportRepository.getDashboard())
                         }
                     }
                 }
@@ -48,7 +58,7 @@ class ReportViewModel @Inject constructor(private val reportRepository: ReportRe
                     val id = action.id
                     coroutineScope {
                         launch {
-                            callUseCase(reportRepository.deleteById(id))
+                            emit(reportRepository.deleteById(id))
                         }
                     }
                 }
@@ -57,7 +67,7 @@ class ReportViewModel @Inject constructor(private val reportRepository: ReportRe
                     delay(250)
                     coroutineScope {
                         launch {
-                            callUseCase(reportRepository.updateReport(report))
+                            emit(reportRepository.updateReport(report))
                         }
                     }
                 }
@@ -67,11 +77,13 @@ class ReportViewModel @Inject constructor(private val reportRepository: ReportRe
     private fun AddReportDataResult.mapAddReport(): ReportViewState = when (this) {
         is AddReportDataResult.Failed -> getCurrentViewState().copy(
             isLoading = false,
-            errorMsg = errorMsg
+            errorMsg = errorMsg,
+            isSuccess = false
         )
         is AddReportDataResult.Success -> getCurrentViewState().copy(
             isLoading = false,
-            message = message
+            message = message,
+            isSuccess = true
         )
     }
 
@@ -86,7 +98,7 @@ class ReportViewModel @Inject constructor(private val reportRepository: ReportRe
         )
     }
 
-    private fun DeleteReportDataResult.mapDeleteReport() : ReportViewState = when (this) {
+    private fun DeleteReportDataResult.mapDeleteReport(): ReportViewState = when (this) {
         is DeleteReportDataResult.Failed -> getCurrentViewState().copy(
             isLoading = false,
             errorMsg = message
@@ -96,4 +108,22 @@ class ReportViewModel @Inject constructor(private val reportRepository: ReportRe
             message = "Berhasil terhapus id $data"
         )
     }
+
+    private fun DashboardDataResult.mapDashboard(): ReportViewState = when (this) {
+        is DashboardDataResult.Failed -> getCurrentViewState().copy(
+            isLoading = false,
+            errorMsg = message
+        )
+        is DashboardDataResult.Success -> getCurrentViewState().copy(
+            isLoading = false,
+            dashboard = dashboard
+        )
+    }
+
+    private fun NameDataResult.mapNameResult() : ReportViewState =
+        when (this) {
+            is NameDataResult.Success -> getCurrentViewState().copy(
+                isLoading = false, name = name
+            )
+        }
 }

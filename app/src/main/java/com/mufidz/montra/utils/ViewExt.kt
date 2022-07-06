@@ -20,7 +20,6 @@ import com.google.android.material.textfield.TextInputLayout
 import com.mufidz.montra.R
 import java.text.DecimalFormat
 import java.text.NumberFormat
-import java.time.Duration
 import java.util.*
 
 fun ViewGroup.inflate(@LayoutRes layoutId: Int): View {
@@ -38,15 +37,16 @@ fun NavOptionsBuilder.slideLeftRightAnim() {
 
 fun View.snackbar(
     message: CharSequence,
-    isError: Boolean,
-    txtAction: String?,
-    action: View.OnClickListener?
+    isError: Boolean = false,
+    txtAction: String? = null,
+    action: View.OnClickListener? = null
 ) {
     val snackbar = Snackbar.make(this, message, Snackbar.LENGTH_LONG)
         .apply {
             if (isError) {
                 setBackgroundTint(ContextCompat.getColor(context, R.color.error))
                 setTextColor(ContextCompat.getColor(context, R.color.white))
+                setActionTextColor(ContextCompat.getColor(context, R.color.white))
             }
             animationMode = Snackbar.ANIMATION_MODE_SLIDE
         }

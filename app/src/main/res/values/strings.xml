@@ -3,4 +3,42 @@
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="hello">Hello,</string>
+    <string name="the_result">The Result</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="reset">Reset</string>
+    <string name="discount_calculator">Discount Calculator</string>
+    <string name="price">Price</string>
+    <string name="_0">0</string>
+    <string name="discount">Discount</string>
+    <string name="count">Count</string>
+    <string name="history">History</string>
+    <string name="last_5_reports">Last 5 reports</string>
+    <string name="see_all">See All</string>
+    <string name="image_no_data">Image no Data</string>
+    <string name="tag">Tag</string>
+    <string name="save">Save</string>
+    <string name="your_balance">Your Balance</string>
+    <string name="income">Income</string>
+    <string name="outcome">Outcome</string>
+    <string name="shimmer">shimmer</string>
+    <string name="title">Title</string>
+    <string name="amount">Amount</string>
+    <string name="pilih_tag">Pilih Tag</string>
+    <string name="desc">Description</string>
+    <string name="submit">Submit</string>
 </resources>

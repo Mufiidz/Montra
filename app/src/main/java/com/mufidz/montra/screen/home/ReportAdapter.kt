@@ -5,13 +5,14 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mufidz.montra.R
 import com.mufidz.montra.base.BaseAdapter
+import com.mufidz.montra.base.BaseViewHolder
 import com.mufidz.montra.databinding.ItemReportBinding
 import com.mufidz.montra.entity.Report
 import com.mufidz.montra.utils.convertToDate
 import com.mufidz.montra.utils.inflate
 import com.mufidz.montra.utils.toRp
 
-class ReportAdapter : BaseAdapter<Report, HomeListener>() {
+class ReportAdapter : BaseAdapter<Report, ReportListener>() {
 
     fun removeAt(position: Int) {
         list.removeAt(position)
@@ -29,23 +30,32 @@ class ReportAdapter : BaseAdapter<Report, HomeListener>() {
         ViewHolder(ItemReportBinding.bind(parent.inflate(R.layout.item_report)))
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ViewHolder).onBind(list[position])
+        (holder as ViewHolder).bind(list[position])
     }
 
+    override fun getItemCount(): Int = if (list.size >= 4) 4 else list.size
+
     inner class ViewHolder(private val binding: ItemReportBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: Report) {
+        BaseViewHolder<Report>(binding.root) {
+        override fun bind(item: Report) {
+            val updatedTime = item.updatedTime
             with(binding) {
-                textTitleItemReport.text = data.title
+                textTitleItemReport.text = item.title
                 textAmountItemReport.apply {
-                    text = data.amount.toRp()
-                    setTextColor(ContextCompat.getColor(context, if (data.isIncome) R.color.purple_500 else R.color.error))
+                    text = if (item.isIncome) item.amount.toRp() else "-${item.amount.toRp()}"
+                    setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            if (item.isIncome) R.color.purple_500 else R.color.error
+                        )
+                    )
                 }
-                textTagItemReport.text = data.tag
-                textDateItemReport.text = data.createdTime.convertToDate("EEEE, dd MMMM yyyy HH:mm")
-                onItemListener?.getItem(data)
+                textTagItemReport.text = item.tag
+                textDateItemReport.text = if (updatedTime <= 0)
+                    item.createdTime.convertToDate("EEEE, dd MMMM yyyy HH:mm") else
+                    "[updated]\n${updatedTime.convertToDate("EEEE, dd MMMM yyyy HH:mm")}"
                 root.setOnClickListener {
-                    onItemListener?.onItemClick(data)
+                    onItemListener?.onItemClick(item)
                 }
             }
         }

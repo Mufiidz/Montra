@@ -1,12 +1,15 @@
 package com.mufidz.montra.di
 
 import android.content.Context
+import android.content.SharedPreferences
+import androidx.preference.PreferenceManager
+import com.mufidz.montra.R
 import com.mufidz.montra.data.local.MontraDb
 import com.mufidz.montra.data.local.ReportDao
-import com.mufidz.montra.screen.*
+import com.mufidz.montra.datamanager.PreferencesDataManagerRepository
+import com.mufidz.montra.datamanager.PreferencesDataManagerRepositoryImpl
 import com.mufidz.montra.utils.DispatcherProvider
 import com.mufidz.montra.utils.DispatcherProviderImpl
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,5 +28,10 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideDispatcherProvider()  : DispatcherProvider = DispatcherProviderImpl()
+    fun provideDispatcherProvider(): DispatcherProvider = DispatcherProviderImpl()
+
+    @Provides
+    @Singleton
+    fun provideSharedPreference(@ApplicationContext context: Context) : SharedPreferences =
+        PreferenceManager.getDefaultSharedPreferences(context)
 }

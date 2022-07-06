@@ -46,14 +46,14 @@
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pemasukan" />
+            android:text="@string/income" />
 
         <Button
             android:id="@+id/btn_pengeluaran_report"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pengeluaran" />
+            android:text="@string/outcome" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -62,7 +62,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="Title"
+        android:hint="@string/title"
         app:layout_constraintEnd_toEndOf="@id/guideline1"
         app:layout_constraintStart_toStartOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/toggleButton">
@@ -80,7 +80,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="Amount"
+        android:hint="@string/amount"
         app:layout_constraintEnd_toEndOf="@id/guideline1"
         app:layout_constraintStart_toStartOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/textfield_title_report"
@@ -91,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:text="0"
+            android:text="@string/_0"
             tools:text="10000"
             android:textAlignment="textEnd"
             android:selectAllOnFocus="true"/>
@@ -113,7 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
-            android:hint="Pilih Tag"/>
+            android:hint="@string/pilih_tag"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -122,7 +122,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="Desc"
+        android:hint="@string/desc"
         app:layout_constraintEnd_toEndOf="@id/guideline1"
         app:layout_constraintStart_toStartOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/textfield_tag_report">
@@ -131,7 +131,8 @@
             android:id="@+id/edt_desc_report"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:maxLines="5"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,8 +142,24 @@
         android:layout_height="55dp"
         android:layout_marginTop="8dp"
         android:elevation="0dp"
-        android:text="Submit"
+        android:text="@string/submit"
         app:layout_constraintEnd_toEndOf="@id/guideline1"
         app:layout_constraintStart_toStartOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/textfield_desc_report" />
+
+    <TextView
+        android:id="@+id/txt_updated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="16dp"
+        android:textColor="@color/text2"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/btn_submit_report"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/guideline1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintVertical_bias="0"
+        tools:text="@tools:sample/lorem"
+        tools:visibility="visible"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

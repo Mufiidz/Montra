@@ -9,7 +9,6 @@ import androidx.navigation.navOptions
 import androidx.viewbinding.ViewBinding
 import com.mufidz.montra.utils.slideLeftRightAnim
 import com.mufidz.montra.utils.snackbar
-import dagger.hilt.android.AndroidEntryPoint
 
 abstract class BaseFragment<T : ViewBinding, VM : ViewModel>(layoutId: Int) : Fragment(layoutId) {
 
@@ -28,7 +27,7 @@ abstract class BaseFragment<T : ViewBinding, VM : ViewModel>(layoutId: Int) : Fr
         binding.root.snackbar(message, isError, txtAction, action)
     }
 
-    protected fun intent(id: Int, args: Bundle?) {
+    protected fun intent(id: Int, args: Bundle? = null) {
         findNavController().navigate(id, args, navOptions { slideLeftRightAnim() })
     }
 

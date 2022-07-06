@@ -1,6 +1,8 @@
-package com.mufidz.montra.screen
+package com.mufidz.montra.repository
 
 import com.mufidz.montra.entity.Report
+import com.mufidz.montra.screen.*
+import com.mufidz.montra.usecase.*
 import javax.inject.Inject
 
 interface ReportRepository {
@@ -8,15 +10,16 @@ interface ReportRepository {
     suspend fun getListReport(): ReportListDataResult
     suspend fun deleteById(id: Int): DeleteReportDataResult
     suspend fun updateReport(report: Report): AddReportDataResult
+    suspend fun getDashboard(): DashboardDataResult
 }
 
 class ReportRepositoryImpl @Inject constructor(
     private val addReportUseCase: AddReportUseCase,
     private val listReportUseCase: ListReportUseCase,
     private val deleteByIdUseCase: DeleteByIdUseCase,
-    private val updateUseCase: UpdateUseCase
-) :
-    ReportRepository {
+    private val updateUseCase: UpdateUseCase,
+    private val dashboardUseCase: DashboardUseCase
+) : ReportRepository {
     override suspend fun addReport(report: Report): AddReportDataResult =
         addReportUseCase.getResult(report)
 
@@ -27,4 +30,7 @@ class ReportRepositoryImpl @Inject constructor(
 
     override suspend fun updateReport(report: Report): AddReportDataResult =
         updateUseCase.getResult(report)
+
+    override suspend fun getDashboard(): DashboardDataResult =
+        dashboardUseCase.getResult(null)
 }
