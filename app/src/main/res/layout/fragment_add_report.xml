@@ -24,11 +24,11 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:titleCentered="true"
-        app:title="Add Report"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Add Report"
+        app:titleCentered="true" />
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/toggleButton"
@@ -71,7 +71,7 @@
             android:id="@+id/edt_title_report"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="textCapWords" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -91,10 +91,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
+            android:selectAllOnFocus="true"
             android:text="@string/_0"
-            tools:text="10000"
             android:textAlignment="textEnd"
-            android:selectAllOnFocus="true"/>
+            tools:text="10000" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,8 +112,8 @@
             android:id="@+id/text_tag_report"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="none"
-            android:hint="@string/pilih_tag"/>
+            android:hint="@string/pilih_tag"
+            android:inputType="none" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -132,7 +132,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
-            android:maxLines="5"/>
+            android:maxLines="5" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -154,12 +154,12 @@
         android:layout_marginVertical="16dp"
         android:textColor="@color/text2"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/btn_submit_report"
-        app:layout_constraintStart_toStartOf="@id/guideline"
-        app:layout_constraintEnd_toEndOf="@id/guideline1"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline1"
         app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/btn_submit_report"
         app:layout_constraintVertical_bias="0"
         tools:text="@tools:sample/lorem"
-        tools:visibility="visible"/>
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

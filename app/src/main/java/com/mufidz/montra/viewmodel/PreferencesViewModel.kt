@@ -1,9 +1,12 @@
 package com.mufidz.montra.viewmodel
 
+import android.content.Context
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import com.mufidz.montra.R
 import com.mufidz.montra.base.BaseViewModel
 import com.mufidz.montra.base.UseCaseResult
 import com.mufidz.montra.intention.PreferencesAction
@@ -25,7 +28,7 @@ class PreferencesViewModel @Inject constructor(
 
     private val listTag = MutableLiveData(mutableListOf<String>())
 
-    val getListTag : LiveData<MutableList<String>> = listTag
+    val getListTag: LiveData<MutableList<String>> = listTag
 
     fun addTag(tag: String) {
         listTag.value?.add(tag)
@@ -46,6 +49,16 @@ class PreferencesViewModel @Inject constructor(
             Collections.swap(it, from, to)
         }
         listTag.value = listTag.value
+    }
+
+    fun setTheme(chosenTheme: String, context: Context) {
+        val themeValues = context.resources.getStringArray(R.array.mode)
+        when (chosenTheme) {
+            themeValues[0] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            themeValues[1] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            themeValues[2] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        }
     }
 
     override fun renderViewState(result: UseCaseResult?): PreferencesViewState =

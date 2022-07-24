@@ -44,7 +44,7 @@ fun View.snackbar(
     val snackbar = Snackbar.make(this, message, Snackbar.LENGTH_LONG)
         .apply {
             if (isError) {
-                setBackgroundTint(ContextCompat.getColor(context, R.color.error))
+                setBackgroundTint(ContextCompat.getColor(context, R.color.snackbarError))
                 setTextColor(ContextCompat.getColor(context, R.color.white))
                 setActionTextColor(ContextCompat.getColor(context, R.color.white))
             }

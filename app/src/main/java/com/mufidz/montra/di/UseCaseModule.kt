@@ -54,19 +54,19 @@ class UseCaseModule {
     fun provideGetName(
         dispatcherProvider: DispatcherProvider,
         preferencesDataManagerRepository: PreferencesDataManagerRepository
-    ) : GetNameUseCase = GetNameUseCase(dispatcherProvider, preferencesDataManagerRepository)
+    ): GetNameUseCase = GetNameUseCase(dispatcherProvider, preferencesDataManagerRepository)
 
     @Provides
     @Singleton
     fun provideSetTag(
         dispatcherProvider: DispatcherProvider,
         preferencesDataManagerRepository: PreferencesDataManagerRepository
-    ) : SetTagUseCase = SetTagUseCase(dispatcherProvider, preferencesDataManagerRepository)
+    ): SetTagUseCase = SetTagUseCase(dispatcherProvider, preferencesDataManagerRepository)
 
     @Provides
     @Singleton
     fun provideGetTag(
         dispatcherProvider: DispatcherProvider,
         preferencesDataManagerRepository: PreferencesDataManagerRepository
-    ) : GetTagUseCase = GetTagUseCase(dispatcherProvider, preferencesDataManagerRepository)
+    ): GetTagUseCase = GetTagUseCase(dispatcherProvider, preferencesDataManagerRepository)
 }

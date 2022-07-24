@@ -7,6 +7,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.mufidz.montra.base.BaseBottomSheet
 import com.mufidz.montra.databinding.BottomsheetResultDiscountBinding
+import com.mufidz.montra.screen.plan.MoneyPlanFragment
 import com.mufidz.montra.utils.toRp
 import com.mufidz.montra.utils.viewBinding
 
@@ -28,6 +29,7 @@ class ResultDiscountBottomSheet :
             txtDesc.text = desc
             btnReset.setOnClickListener {
                 setFragmentResult(RESULT_KEY, bundleOf("isReset" to true))
+                setFragmentResult(MoneyPlanFragment.RESULT_KEY, bundleOf("isReset" to true))
                 findNavController().navigateUp()
             }
             btnDismiss.setOnClickListener { dismissAllowingStateLoss() }

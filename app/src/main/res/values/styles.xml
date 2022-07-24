@@ -13,7 +13,4 @@
         <item name="bottomSheetStyle">@style/BottomSheetModalStyle</item>
     </style>
 
-    <style name="BottomSheetModalStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/rounded_bottom</item>
-    </style>
 </resources>

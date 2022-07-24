@@ -16,7 +16,7 @@ interface PreferencesRepository {
 class PreferencesRepositoryImpl @Inject constructor(
     private val getNameUseCase: GetNameUseCase,
     private val setTagUseCase: SetTagUseCase,
-    private val getTagUseCase: GetTagUseCase
+    private val getTagUseCase: GetTagUseCase,
 ) : PreferencesRepository {
 
     override suspend fun getName(): NameDataResult =

@@ -77,7 +77,7 @@ class HistoryFragment :
                 }
                 itemTouchHelper.attachToRecyclerView(this)
             }
-            imgNoData.visibility = if (reportAdapter.itemCount == 0) View.VISIBLE else View.GONE
+            imgNoData.visibility = View.GONE
         }
 
         viewModel.apply {
@@ -85,6 +85,7 @@ class HistoryFragment :
             viewState.observe(viewLifecycleOwner) {
                 reportAdapter.setData(it.listReport)
                 with(binding) {
+                    imgNoData.visibility = if (it.listReport.isEmpty()) View.VISIBLE else View.GONE
                     if (it.isLoading) {
                         shimmer.apply {
                             visibility = View.VISIBLE
@@ -110,6 +111,4 @@ class HistoryFragment :
     override fun getItemCount(count: Int) {
         binding.imgNoData.visibility = if (count == 0) View.VISIBLE else View.GONE
     }
-
-
 }

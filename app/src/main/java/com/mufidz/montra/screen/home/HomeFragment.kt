@@ -77,7 +77,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, ReportViewModel>(R.layout
 
     private fun getListProduct(): List<Product> = listOf(
         Product("Income", R.id.addReportFragment, bundleOf("isIncome" to true)),
-        Product("Money Plan"),
+        Product("Money Plan", R.id.moneyPlanFragment),
         Product("Outcome", R.id.addReportFragment, bundleOf("isIncome" to false)),
         Product("Wishlist"),
         Product("History", R.id.historyFragment),

@@ -108,6 +108,8 @@
         android:layout_height="150dp"
         android:src="@drawable/ic_no_data"
         android:layout_gravity="center"
-        android:contentDescription="@string/image_no_data" />
+        android:visibility="gone"
+        android:contentDescription="@string/image_no_data"
+        tools:visibility="visible"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

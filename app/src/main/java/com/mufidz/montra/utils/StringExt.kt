@@ -6,6 +6,7 @@ import java.util.*
 
 fun Int.toRp(): String {
     val format = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+    format.maximumFractionDigits = 0
     return format.format(this)
 }
 

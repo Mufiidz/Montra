@@ -3,6 +3,7 @@ package com.mufidz.montra.screen.profile
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.mufidz.montra.R
@@ -19,6 +20,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     null,
                     navOptions { slideLeftRightAnim() })
                 true
+            }
+        }
+        Preference.SummaryProvider<ListPreference> { it.entry }.also { summaryProvider ->
+            findPreference<ListPreference>("themeMode")?.let {
+                it.summaryProvider = summaryProvider
             }
         }
     }

@@ -19,7 +19,7 @@ class DashboardHomeViewHolder(private val binding: ItemDashboardHomeBinding) :
                 setTextColor(
                     ContextCompat.getColor(
                         context,
-                        if (amount < 0) R.color.error else if (amount == 0) R.color.black else R.color.purple_500
+                        if (amount < 0) R.color.error else if (amount == 0) R.color.text else R.color.purple_500
                     )
                 )
             }

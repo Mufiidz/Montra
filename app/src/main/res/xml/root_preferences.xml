@@ -1,15 +1,32 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <EditTextPreference
-        app:key="name"
-        app:title="Your Name"
-        app:useSimpleSummaryProvider="true"
-        app:iconSpaceReserved="false"/>
+    <PreferenceCategory
+        android:title="My Account"
+        app:iconSpaceReserved="false">
 
-    <Preference
-        app:key="tag"
-        app:title="Tag Category"
-        app:summary="Change tag here"
-        app:iconSpaceReserved="false"/>
+        <EditTextPreference
+            app:iconSpaceReserved="false"
+            app:key="name"
+            app:title="Your Name"
+            app:useSimpleSummaryProvider="true" />
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="tag"
+            app:summary="Change tag here"
+            app:title="Tag Category" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Preference Category"
+        app:iconSpaceReserved="false">
+        <ListPreference
+            android:entries="@array/mode"
+            android:entryValues="@array/mode"
+            android:key="themeMode"
+            android:summary="Default Mode"
+            android:title="Theme Mode"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

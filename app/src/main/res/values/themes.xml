@@ -15,6 +15,7 @@
 <!--        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>-->
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/black</item>
+
     </style>
     
     <style name="Theme.Montra.Starting" parent="Theme.SplashScreen">
@@ -24,5 +25,9 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+    </style>
+
+    <style name="BottomSheetModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/rounded_bottom</item>
     </style>
 </resources>

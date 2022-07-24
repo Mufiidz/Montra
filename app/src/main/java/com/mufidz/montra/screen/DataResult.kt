@@ -31,3 +31,5 @@ sealed class NameDataResult : UseCaseResult() {
 sealed class TagDataResult : UseCaseResult() {
     data class Success(val listTag : MutableList<String>) : TagDataResult()
 }
+
+class ThemeDataResult : UseCaseResult()

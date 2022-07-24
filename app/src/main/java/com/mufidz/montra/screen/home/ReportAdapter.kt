@@ -46,7 +46,7 @@ class ReportAdapter : BaseAdapter<Report, ReportListener>() {
                     setTextColor(
                         ContextCompat.getColor(
                             context,
-                            if (item.isIncome) R.color.purple_500 else R.color.error
+                            if (item.isIncome) R.color.primary else R.color.error
                         )
                     )
                 }

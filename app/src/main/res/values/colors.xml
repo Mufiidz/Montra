@@ -12,8 +12,39 @@
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
+    <!--MD3 Color-->
+    <color name="surfaceTint">#6750A4</color>
+    <color name="surfaceTintColor">#6750A4</color>
+    <color name="onErrorContainer">#410E0B</color>
+    <color name="onError">#FFFFFF</color>
+    <color name="errorContainer">#F9DEDC</color>
+    <color name="onTertiaryContainer">#31111D</color>
+    <color name="onTertiary">#FFFFFF</color>
+    <color name="tertiaryContainer">#FFD8E4</color>
+    <color name="tertiary">#7D5260</color>
+    <color name="shadow">#000000</color>
     <color name="error">#B3261E</color>
-    <color name="text2">#888686</color>
+    <color name="outline">#79747E</color>
+    <color name="onBackground">#1C1B1F</color>
     <color name="background">#FFFBFE</color>
+    <color name="inverseOnSurface">#F4EFF4</color>
+    <color name="inverseSurface">#313033</color>
+    <color name="onSurfaceVariant">#49454F</color>
+    <color name="onSurface">#1C1B1F</color>
+    <color name="surfaceVariant">#E7E0EC</color>
+    <color name="surface">#FFFBFE</color>
+    <color name="onSecondaryContainer">#1D192B</color>
+    <color name="onSecondary">#FFFFFF</color>
+    <color name="secondaryContainer">#E8DEF8</color>
+    <color name="secondary">#625B71</color>
+    <color name="inversePrimary">#D0BCFF</color>
+    <color name="onPrimaryContainer">#21005D</color>
+    <color name="onPrimary">#FFFFFF</color>
+    <color name="primaryContainer">#EADDFF</color>
+    <color name="primary">#6750A4</color>
+    <!--Custom Color-->
+    <color name="text2">#757575</color>
+    <color name="text">#000000</color>
     <color name="shimmer">#dddddd</color>
+    <color name="snackbarError">#B3261E</color>
 </resources>

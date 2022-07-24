@@ -43,5 +43,4 @@ class PreferencesDataManagerRepositoryImpl @Inject constructor(
             if (tags.isNullOrEmpty()) mutableListOf("Dompet") else Json.decodeFromString(tags)
         list
     }
-
 }

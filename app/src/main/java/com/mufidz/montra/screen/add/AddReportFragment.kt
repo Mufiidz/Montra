@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.mufidz.montra.R
 import com.mufidz.montra.base.BaseFragment
@@ -28,6 +29,8 @@ class AddReportFragment :
 
     private var report: Report? = null
 
+    private val args by navArgs<AddReportFragmentArgs>()
+
     private val prefViewModel by viewModels<PreferencesViewModel>()
 
     override val viewModel: ReportViewModel by viewModels()
@@ -40,7 +43,9 @@ class AddReportFragment :
         val isNewIncome = arguments?.getBoolean("isIncome", true)
         isUpdate = report != null
         val amount = report?.amount ?: 0
-        val isIncomeReport = report?.isIncome ?: isNewIncome ?: true
+
+        val isIncomeReport = if (isUpdate) report?.isIncome ?: isNewIncome
+        ?: true else args.type.lowercase() != "outcome"
 
         with(binding) {
             toolbar.apply {

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"/>
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Add Money Plan"
+        app:titleCentered="true" />
+
+    <EditText
+        android:id="@+id/edt_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:hint="@string/title"
+        android:importantForAutofill="no"
+        android:inputType="textCapWords"
+        android:minHeight="48dp"
+        android:textColorHint="#A1887F"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@id/guideline1"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/rp"
+        android:textSize="30sp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/edt_title" />
+
+    <EditText
+        android:id="@+id/edt_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        android:hint="@string/_0"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:textAlignment="textEnd"
+        android:textColorHint="#A1887F"
+        android:selectAllOnFocus="true"
+        android:textSize="48sp"
+        android:maxLength="11"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@id/edt_title" />
+
+    <EditText
+        android:id="@+id/edt_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        android:hint="@string/_00"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:maxLength="2"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:textAlignment="center"
+        android:textColorHint="#A1887F"
+        android:selectAllOnFocus="true"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="@id/guideline1"
+        app:layout_constraintTop_toBottomOf="@+id/edt_price" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/quantity"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintTop_toBottomOf="@id/edt_quantity"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/guideline1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/total"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/guideline1"
+        app:layout_constraintBottom_toBottomOf="@id/guideline2"
+        app:layout_constraintHorizontal_bias="0"/>
+
+    <TextView
+        android:id="@+id/tv_total"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textAlignment="textEnd"
+        android:textColor="@color/primary"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/guideline1"
+        app:layout_constraintTop_toTopOf="@id/guideline2"
+        tools:text="Rp999.000.000.000"/>
+
+    <Button
+        android:id="@+id/btn_add_plan"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/guideline1"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

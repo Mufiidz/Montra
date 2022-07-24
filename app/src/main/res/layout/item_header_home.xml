@@ -49,6 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:contentDescription="Button Profile"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText"
+        app:tint="@color/text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
