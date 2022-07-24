@@ -23,12 +23,6 @@
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="mufidz.my.id"
-                    android:scheme="https"
-                    android:pathPrefix="/montra" />
             </intent-filter>
         </activity>
     </application>
