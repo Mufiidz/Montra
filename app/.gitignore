@@ -2,4 +2,5 @@
 /schemas
 /src/androidTest
 /src/test
+/release
 proguard-rules.pro
