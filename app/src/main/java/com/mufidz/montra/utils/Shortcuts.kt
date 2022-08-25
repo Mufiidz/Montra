@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.net.toUri
 import com.mufidz.montra.screen.MainActivity
@@ -17,11 +19,14 @@ object Shortcuts {
 
     fun setUp(context: Context) {
         context.apply {
-            getSystemService(this, ShortcutManager::class.java)?.dynamicShortcuts =
-                getListShortcut()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                getSystemService(this, ShortcutManager::class.java)?.dynamicShortcuts =
+                    getListShortcut()
+            }
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.N_MR1)
     private fun Context.getListShortcut() = listOf(
         createShortcut(INCOME_ID, "Income", "https://mufidz.my.id/montra/addReport/income"),
         createShortcut(
@@ -37,6 +42,7 @@ object Shortcuts {
         createShortcut(PLAN_ID, "Money Plan", "https://mufidz.my.id/montra/moneyPlan"),
     ).asReversed()
 
+    @RequiresApi(Build.VERSION_CODES.N_MR1)
     private fun Context.createShortcut(key: String, name: String, deepLink: String) =
         ShortcutInfo.Builder(this, key)
             .setShortLabel(name)

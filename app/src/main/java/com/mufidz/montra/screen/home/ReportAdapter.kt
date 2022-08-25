@@ -1,5 +1,6 @@
 package com.mufidz.montra.screen.home
 
+import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +13,7 @@ import com.mufidz.montra.utils.convertToDate
 import com.mufidz.montra.utils.inflate
 import com.mufidz.montra.utils.toRp
 
-class ReportAdapter : BaseAdapter<Report, ReportListener>() {
+class ReportAdapter(private val isFullHistory: Boolean) : BaseAdapter<Report, ReportListener>() {
 
     fun removeAt(position: Int) {
         list.removeAt(position)
@@ -20,6 +21,7 @@ class ReportAdapter : BaseAdapter<Report, ReportListener>() {
         onItemListener?.getItemCount(list.size)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateAt(position: Int, report: Report) {
         if (list.isEmpty()) list.add(report) else list.add(position, report)
         notifyDataSetChanged()
@@ -33,7 +35,7 @@ class ReportAdapter : BaseAdapter<Report, ReportListener>() {
         (holder as ViewHolder).bind(list[position])
     }
 
-    override fun getItemCount(): Int = if (list.size >= 4) 4 else list.size
+    override fun getItemCount(): Int = if (!isFullHistory && list.size >= 4) 4 else list.size
 
     inner class ViewHolder(private val binding: ItemReportBinding) :
         BaseViewHolder<Report>(binding.root) {

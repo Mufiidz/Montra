@@ -17,7 +17,7 @@ class MainHomeViewHolder(
     private val listener: ReportListener?
 ) :
     BaseViewHolder<MutableList<Report>>(binding.root) {
-    private val reportAdapter by lazy { ReportAdapter() }
+    private val reportAdapter by lazy { ReportAdapter(false) }
     override fun bind(item: MutableList<Report>) {
         reportAdapter.setData(item)
         binding.apply {

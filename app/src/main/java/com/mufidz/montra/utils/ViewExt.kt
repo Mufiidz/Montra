@@ -44,9 +44,9 @@ fun View.snackbar(
     val snackbar = Snackbar.make(this, message, Snackbar.LENGTH_LONG)
         .apply {
             if (isError) {
-                setBackgroundTint(ContextCompat.getColor(context, R.color.snackbarError))
-                setTextColor(ContextCompat.getColor(context, R.color.white))
-                setActionTextColor(ContextCompat.getColor(context, R.color.white))
+                setBackgroundTint(ContextCompat.getColor(context, R.color.error))
+                setTextColor(ContextCompat.getColor(context, R.color.onError))
+                setActionTextColor(ContextCompat.getColor(context, R.color.errorContainer))
             }
             animationMode = Snackbar.ANIMATION_MODE_SLIDE
         }

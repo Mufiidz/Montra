@@ -1,5 +1,6 @@
 package com.mufidz.montra.screen.add
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
@@ -18,6 +19,7 @@ import com.mufidz.montra.viewmodel.PreferencesViewModel
 import com.mufidz.montra.viewmodel.ReportViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.util.*
 
 @AndroidEntryPoint
 class AddReportFragment :
@@ -37,15 +39,20 @@ class AddReportFragment :
 
     override val binding: FragmentAddReportBinding by viewBinding()
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         report = arguments?.getParcelable("report")
-        val isNewIncome = arguments?.getBoolean("isIncome", true)
+        val isNewIncome = args.isIncome
         isUpdate = report != null
         val amount = report?.amount ?: 0
+        val type = args.type
 
-        val isIncomeReport = if (isUpdate) report?.isIncome ?: isNewIncome
-        ?: true else args.type.lowercase() != "outcome"
+        val isIncomeReport = if (!type.isNullOrEmpty()) {
+            type.lowercase(Locale.getDefault()) != "outcome"
+        } else {
+            if (!isUpdate) isNewIncome else report?.isIncome ?: true
+        }
 
         with(binding) {
             toolbar.apply {

@@ -26,7 +26,7 @@ import kotlin.math.abs
 class HistoryFragment :
     BaseFragment<HistoryFragmentBinding, ReportViewModel>(R.layout.history_fragment), ReportListener {
 
-    private val reportAdapter by lazy { ReportAdapter() }
+    private val reportAdapter by lazy { ReportAdapter(true) }
 
     override val viewModel: ReportViewModel by viewModels()
 
