@@ -57,7 +57,7 @@ class MoneyPlanFragment :
             }
             btnAddPlan.setOnClickListener {
                 val title = edtTitle.text.toString().trim()
-                val price = edtPrice.text?.trim().toString().replace(",".toRegex(), "").toInt()
+                val price = edtPrice.text?.trim().toString().filter { it.isDigit() }.toInt()
 
                 when {
                     title.isEmpty() && price <= 0 -> intent(R.id.editMoneyPlanFragment)
@@ -82,7 +82,7 @@ class MoneyPlanFragment :
         }
 
         setFragmentResultListener(RESULT_KEY) { _, bundle ->
-            bundle.getParcelable<MoneyPlan>("moneyPlan")?.let {
+            bundle.parcelable<MoneyPlan>("moneyPlan")?.let {
                 val isUpdate = bundle.getBoolean("isUpdate")
                 if (isUpdate) viewModel.updateMoneyPlan(it) else viewModel.addMoneyPlan(it)
             }

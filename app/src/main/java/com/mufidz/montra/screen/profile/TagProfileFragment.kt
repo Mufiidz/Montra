@@ -10,17 +10,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mufidz.montra.R
 import com.mufidz.montra.base.BaseFragment
+import com.mufidz.montra.data.prefs.MontraPreferences
 import com.mufidz.montra.databinding.FragmentTagProfileBinding
-import com.mufidz.montra.intention.PreferencesAction
 import com.mufidz.montra.utils.initToolbar
 import com.mufidz.montra.utils.viewBinding
 import com.mufidz.montra.viewmodel.PreferencesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TagProfileFragment :
     BaseFragment<FragmentTagProfileBinding, PreferencesViewModel>(R.layout.fragment_tag_profile) {
+
+    @Inject
+    lateinit var montraPreferences: MontraPreferences
 
     private val tagAdapter by lazy { TagAdapter() }
 
@@ -54,21 +58,17 @@ class TagProfileFragment :
             btnSave.setOnClickListener {
                 val tags = tagAdapter.list
                 Timber.d(tags.toString())
-                viewModel.apply {
-                    execute(PreferencesAction.SetTag(tags))
-                }
+                montraPreferences.tags = tags
             }
         }
 
         with(viewModel) {
-            execute(PreferencesAction.GetTag)
-            viewState.observe(viewLifecycleOwner) {
-                Timber.d(it.listTag.toString())
-                addAllTag(it.listTag)
-            }
+            val tags = montraPreferences.tags
+            Timber.d(tags.toString())
+            addAllTag(tags)
             getListTag.observe(viewLifecycleOwner) {
                 tagAdapter.list = listTags.ifEmpty { it }
-                Timber.tag("tag").d("$listTags")
+                Timber.d("$listTags")
             }
         }
     }

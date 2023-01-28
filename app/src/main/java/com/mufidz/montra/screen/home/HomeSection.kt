@@ -20,9 +20,10 @@ sealed class HomeSection : Section() {
             MainHome()
         )
 
-        fun getNameHome(name : String) : HomeSection = HeaderHome(name)
+        fun getNameHome(name: String): HomeSection = HeaderHome(name)
 
-        fun getDashboardHome(dashboard: Dashboard) : HomeSection = DashboardHome(dashboard)
+        fun getDashboardHome(dashboard: Dashboard, isVisibleBalance: Boolean): HomeSection =
+            DashboardHome(dashboard, isVisibleBalance)
 
         fun getProductHome(listProduct: List<Product>) = ProductHome(listProduct)
 
@@ -30,11 +31,12 @@ sealed class HomeSection : Section() {
     }
 }
 
-data class HeaderHome(val name : String = "") : HomeSection() {
+data class HeaderHome(val name: String = "") : HomeSection() {
     override val viewType: Int get() = HEADER_HOME
 }
 
-data class DashboardHome(val dashboard: Dashboard? = null) : HomeSection() {
+data class DashboardHome(val dashboard: Dashboard? = null, val isVisibleBalance: Boolean = true) :
+    HomeSection() {
     override val viewType: Int get() = DASHBOARD_HOME
 }
 

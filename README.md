@@ -14,10 +14,17 @@ Sebuah app yang mencatat uang anda.
 - CRUD history uang
 
 ## Screenshoots
--
+|                                              |                                                     |
+| -------------------------------------------- | --------------------------------------------------- |
+| ![Home](screenshots/1.png)                  | ![Add Report](/screenshots/2.png) |
+| Home                                         | Add Report                                    |
+| ![History](/screenshots/3.png)                  |
+| History                                         |
 
 ## Preview
 -
 
 ## Next Update
--
+- App Icon
+- About
+- Wishlist

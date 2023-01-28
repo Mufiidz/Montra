@@ -7,9 +7,11 @@ import com.mufidz.montra.base.BaseViewModel
 import com.mufidz.montra.base.UseCaseResult
 import com.mufidz.montra.intention.ReportAction
 import com.mufidz.montra.intention.ReportViewState
-import com.mufidz.montra.repository.PreferencesRepository
 import com.mufidz.montra.repository.ReportRepository
-import com.mufidz.montra.screen.*
+import com.mufidz.montra.screen.AddReportDataResult
+import com.mufidz.montra.screen.DashboardDataResult
+import com.mufidz.montra.screen.DeleteReportDataResult
+import com.mufidz.montra.screen.ReportListDataResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
@@ -18,8 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ReportViewModel @Inject constructor(
-    private val reportRepository: ReportRepository,
-    private val preferencesRepository: PreferencesRepository
+    private val reportRepository: ReportRepository
 ) : BaseViewModel<ReportViewState, ReportAction>(ReportViewState()) {
     override fun renderViewState(result: UseCaseResult?): ReportViewState =
         when (result) {
@@ -27,7 +28,6 @@ class ReportViewModel @Inject constructor(
             is ReportListDataResult -> result.mapListReport()
             is DeleteReportDataResult -> result.mapDeleteReport()
             is DashboardDataResult -> result.mapDashboard()
-            is NameDataResult -> result.mapNameResult()
             else -> getCurrentViewState()
         }
 
@@ -47,7 +47,6 @@ class ReportViewModel @Inject constructor(
                     delay(3000)
                     coroutineScope {
                         launch {
-                            emit(preferencesRepository.getName())
                             emit(reportRepository.getListReport())
                             emit(reportRepository.getDashboard())
                         }
@@ -119,11 +118,4 @@ class ReportViewModel @Inject constructor(
             dashboard = dashboard
         )
     }
-
-    private fun NameDataResult.mapNameResult() : ReportViewState =
-        when (this) {
-            is NameDataResult.Success -> getCurrentViewState().copy(
-                isLoading = false, name = name
-            )
-        }
 }

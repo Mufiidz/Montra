@@ -23,13 +23,3 @@ sealed class DashboardDataResult : UseCaseResult() {
     data class Success(val dashboard: Dashboard) : DashboardDataResult()
     data class Failed(val message: String) : DashboardDataResult()
 }
-
-sealed class NameDataResult : UseCaseResult() {
-    data class Success(val name : String) : NameDataResult()
-}
-
-sealed class TagDataResult : UseCaseResult() {
-    data class Success(val listTag : MutableList<String>) : TagDataResult()
-}
-
-class ThemeDataResult : UseCaseResult()

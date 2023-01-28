@@ -6,4 +6,5 @@ import com.mufidz.montra.entity.Report
 interface ReportListener : ItemClick {
     fun onItemClick(data: Report)
     fun getItemCount(count: Int)
+    fun onBalanceVisibilityChange(isVisible: Boolean)
 }

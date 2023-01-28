@@ -1,5 +1,6 @@
 package com.mufidz.montra.screen.discount
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
@@ -27,6 +28,7 @@ class DiscountFragment :
 
     override val binding: DiscountFragmentBinding by viewBinding()
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -61,7 +63,7 @@ class DiscountFragment :
                 itemTouchHelper.attachToRecyclerView(this)
             }
             btnCount.setOnClickListener {
-                val price = edtPrice.text?.trim().toString().replace(",".toRegex(), "").toInt()
+                val price = edtPrice.text?.trim().toString().filter { it.isDigit() }.toInt()
                 val desc = "The result of ${price.toRp()} has been discounted with ${
                     listDiscount.joinToString(separator = "%, ", postfix = "%")
                 }"

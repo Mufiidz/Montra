@@ -40,7 +40,7 @@
     <color name="onPrimary">#FFFFFF</color>
     <color name="primaryContainer">#EADDFF</color>
     <color name="primary">#6750A4</color>
-    <color name="text2">#757575</color>
+    <color name="text2">#616161</color>
     <color name="text">#000000</color>
     <color name="shimmer">#dddddd</color>
 </resources>

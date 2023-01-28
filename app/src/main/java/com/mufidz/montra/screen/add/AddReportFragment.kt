@@ -10,20 +10,23 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.mufidz.montra.R
 import com.mufidz.montra.base.BaseFragment
+import com.mufidz.montra.data.prefs.MontraPreferences
 import com.mufidz.montra.databinding.FragmentAddReportBinding
 import com.mufidz.montra.entity.Report
-import com.mufidz.montra.intention.PreferencesAction
 import com.mufidz.montra.intention.ReportAction
 import com.mufidz.montra.utils.*
-import com.mufidz.montra.viewmodel.PreferencesViewModel
 import com.mufidz.montra.viewmodel.ReportViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddReportFragment :
     BaseFragment<FragmentAddReportBinding, ReportViewModel>(R.layout.fragment_add_report) {
+
+    @Inject
+    lateinit var montraPreferences: MontraPreferences
 
     private var isIncome = true
 
@@ -33,8 +36,6 @@ class AddReportFragment :
 
     private val args by navArgs<AddReportFragmentArgs>()
 
-    private val prefViewModel by viewModels<PreferencesViewModel>()
-
     override val viewModel: ReportViewModel by viewModels()
 
     override val binding: FragmentAddReportBinding by viewBinding()
@@ -42,7 +43,7 @@ class AddReportFragment :
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        report = arguments?.getParcelable("report")
+        report = args.report
         val isNewIncome = args.isIncome
         isUpdate = report != null
         val amount = report?.amount ?: 0
@@ -87,6 +88,9 @@ class AddReportFragment :
             }
             textTagReport.apply {
                 setText(report?.tag ?: "Pilih Tag")
+                (this as MaterialAutoCompleteTextView).setSimpleItems(
+                    montraPreferences.tags.toTypedArray()
+                )
             }
             txtUpdated.apply {
                 val updateTime = report?.updatedTime ?: 0
@@ -104,6 +108,7 @@ class AddReportFragment :
                 text = if (isUpdate) "Update" else "Submit"
                 setOnClickListener { onSubmitReport() }
             }
+            swIsscecret.isChecked = report?.isSecret ?: false
         }
 
         viewModel.viewState.observe(viewLifecycleOwner) {
@@ -113,18 +118,6 @@ class AddReportFragment :
                 findNavController().navigateUp()
             }
         }
-
-        prefViewModel.apply {
-            prefViewModel.execute(PreferencesAction.GetTag)
-            viewState.observe(viewLifecycleOwner) {
-                Timber.d(it.listTag.toTypedArray().toString())
-                binding.textTagReport.apply {
-                    (this as MaterialAutoCompleteTextView).setSimpleItems(
-                        it.listTag.toTypedArray()
-                    )
-                }
-            }
-        }
     }
 
     private fun onSubmitReport() {
@@ -132,19 +125,20 @@ class AddReportFragment :
             val title = edtTitleReport.text?.trim().toString()
             val edtTxtAmount =
                 if (edtAmountReport.text.isNullOrEmpty()) "0" else edtAmountReport.text.toString()
-            val amount = edtTxtAmount.replace(",".toRegex(), "").toInt()
+            val amount = edtTxtAmount.filter { it.isDigit() }.toInt()
             val desc = edtDescReport.text?.trim().toString()
             val tag = textTagReport.text.trim().toString()
             val isTagged = tag.isEmpty() || tag.equals(
                 "pilih tag",
                 true
             )
+            val isSecret = swIsscecret.isChecked
             isIncome = toggleButton.checkedButtonId != R.id.btn_pengeluaran_report
 
             when {
                 title.isEmpty() -> textfieldTitleReport.setErrorNot(title.isEmpty())
-                amount == 0 -> textfieldAmountReport.setErrorNot(amount == 0)
-                isTagged -> textfieldTagReport.setErrorNot(isTagged)
+                amount == 0 -> textfieldAmountReport.setErrorNot(true)
+                isTagged -> textfieldTagReport.setErrorNot(true)
                 else -> {
                     val time = System.currentTimeMillis()
                     if (isUpdate) {
@@ -156,7 +150,8 @@ class AddReportFragment :
                             tag = tag,
                             createdTime = report?.createdTime ?: time,
                             updatedTime = time,
-                            comment = desc
+                            comment = desc,
+                            isSecret = isSecret
                         ).also {
                             Timber.d(it.toString())
                             viewModel.execute(ReportAction.UpdateReport(it))
@@ -168,7 +163,8 @@ class AddReportFragment :
                             isIncome = isIncome,
                             tag = tag,
                             createdTime = time,
-                            comment = desc
+                            comment = desc,
+                            isSecret = isSecret
                         ).also {
                             Timber.d(it.toString())
                             viewModel.execute(ReportAction.AddReport(it))

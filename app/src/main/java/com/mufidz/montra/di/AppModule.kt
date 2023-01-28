@@ -3,11 +3,8 @@ package com.mufidz.montra.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
-import com.mufidz.montra.R
 import com.mufidz.montra.data.local.MontraDb
 import com.mufidz.montra.data.local.ReportDao
-import com.mufidz.montra.datamanager.PreferencesDataManagerRepository
-import com.mufidz.montra.datamanager.PreferencesDataManagerRepositoryImpl
 import com.mufidz.montra.utils.DispatcherProvider
 import com.mufidz.montra.utils.DispatcherProviderImpl
 import dagger.Module

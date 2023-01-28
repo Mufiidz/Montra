@@ -14,11 +14,11 @@ import com.mufidz.montra.base.BaseFragment
 import com.mufidz.montra.databinding.HistoryFragmentBinding
 import com.mufidz.montra.entity.Report
 import com.mufidz.montra.intention.ReportAction
-import com.mufidz.montra.viewmodel.ReportViewModel
-import com.mufidz.montra.screen.home.ReportListener
 import com.mufidz.montra.screen.home.ReportAdapter
+import com.mufidz.montra.screen.home.ReportListener
 import com.mufidz.montra.utils.initToolbar
 import com.mufidz.montra.utils.viewBinding
+import com.mufidz.montra.viewmodel.ReportViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
@@ -111,4 +111,6 @@ class HistoryFragment :
     override fun getItemCount(count: Int) {
         binding.imgNoData.visibility = if (count == 0) View.VISIBLE else View.GONE
     }
+
+    override fun onBalanceVisibilityChange(isVisible: Boolean) {}
 }

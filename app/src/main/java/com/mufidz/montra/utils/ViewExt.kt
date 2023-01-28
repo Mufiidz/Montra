@@ -49,8 +49,8 @@ fun View.snackbar(
                 setActionTextColor(ContextCompat.getColor(context, R.color.errorContainer))
             }
             animationMode = Snackbar.ANIMATION_MODE_SLIDE
+            setAction(txtAction, action)
         }
-    snackbar.setAction(txtAction, action)
     return snackbar.show()
 }
 
@@ -79,16 +79,12 @@ fun EditText.formattedEditText() {
         override fun afterTextChanged(p0: Editable?) {
             removeTextChangedListener(this)
             try {
-                var originalString = p0.toString()
-                if (originalString.contains(",")) {
-                    originalString = originalString.replace(",".toRegex(), "")
-                }
-                val longval = originalString.toLong()
+                val formatedNumber = p0.toString().filter { it.isDigit() }.toLong()
                 val formatter = NumberFormat.getInstance(Locale.getDefault()) as DecimalFormat
-                formatter.applyPattern("#,###,###,###")
-                val formattedString = formatter.format(longval)
+                formatter.applyPattern("###,###,###,###")
+                val formattedString = formatter.format(formatedNumber)
 
-                setText(formattedString)
+                setText(formattedString.take(19))
                 setSelection(text.length)
             } catch (nfe: NumberFormatException) {
                 nfe.printStackTrace()

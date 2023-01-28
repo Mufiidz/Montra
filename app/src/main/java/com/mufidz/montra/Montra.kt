@@ -12,7 +12,16 @@ class Montra : Application() {
         super.onCreate()
         DynamicColors.applyToActivitiesIfAvailable(this)
         if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
+            Timber.plant(object : Timber.DebugTree() {
+                override fun createStackElementTag(element: StackTraceElement): String {
+                    return String.format(
+                        "%s.%s:line %s",
+                        super.createStackElementTag(element),
+                        element.methodName,
+                        element.lineNumber
+                    )
+                }
+            })
         }
     }
 }

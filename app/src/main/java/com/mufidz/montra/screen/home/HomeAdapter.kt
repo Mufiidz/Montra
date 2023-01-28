@@ -29,7 +29,8 @@ class HomeAdapter : BaseSection<HomeSection>() {
                 ItemHeaderHomeBinding.bind(parent.inflate(R.layout.item_header_home))
             )
             HomeSection.DASHBOARD_HOME -> DashboardHomeViewHolder(
-                ItemDashboardHomeBinding.bind(parent.inflate(R.layout.item_dashboard_home))
+                ItemDashboardHomeBinding.bind(parent.inflate(R.layout.item_dashboard_home)),
+                listener
             )
             HomeSection.PRODUCT_HOME -> ProductHomeViewHolder(
                 ItemProductHomeBinding.bind(parent.inflate(R.layout.item_product_home))
@@ -54,7 +55,7 @@ class HomeAdapter : BaseSection<HomeSection>() {
                 }
                 is DashboardHomeViewHolder -> {
                     val data = section[position] as DashboardHome
-                    data.dashboard?.let { bind(it) }
+                    data.dashboard?.let { bind(data) }
                 }
                 is MainHomeViewHolder -> {
                     val data = section[position] as MainHome
@@ -85,9 +86,9 @@ class HomeAdapter : BaseSection<HomeSection>() {
         }
     }
 
-    fun setDashboard(dashboard: Dashboard) {
+    fun setDashboard(dashboard: Dashboard, isVisibleBalance: Boolean) {
         getSectionPosition(HomeSection.DASHBOARD_HOME)?.let {
-            section[it] = HomeSection.getDashboardHome(dashboard)
+            section[it] = HomeSection.getDashboardHome(dashboard, isVisibleBalance)
             notifyDataSetChanged()
         }
     }
